@@ -1,5 +1,5 @@
 bin
-#.project
-#.settings
-#.classpath
-*.class
+.project
+.settings
+.classpath
+.class

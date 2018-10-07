@@ -48,7 +48,7 @@ public class Two_eggs {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		drop_eggs(2, 100);
 	}
 
 }
