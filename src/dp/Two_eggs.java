@@ -72,6 +72,7 @@ public class Two_eggs {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		System.out.println(drop_func(100));
+		drop_eggs(2, 100);
 	}
 
 }

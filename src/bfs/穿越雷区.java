@@ -3,32 +3,32 @@ package bfs;
 import java.util.*;
 
 /**
- * ±êÌâ£º´©Ô½À×Çø
+ * ï¿½ï¿½ï¿½â£ºï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½
 
-XÐÇµÄÌ¹¿ËÕ½³µºÜÆæ¹Ö£¬Ëü±ØÐë½»ÌæµØ´©Ô½ÕýÄÜÁ¿·øÉäÇøºÍ¸ºÄÜÁ¿·øÉäÇø²ÅÄÜ±£³ÖÕý³£ÔË×ª£¬·ñÔò½«±¨·Ï¡£
-Ä³Ì¹¿ËÐèÒª´ÓAÇøµ½BÇøÈ¥£¨A£¬BÇø±¾ÉíÊÇ°²È«Çø£¬Ã»ÓÐÕýÄÜÁ¿»ò¸ºÄÜÁ¿ÌØÕ÷£©£¬ÔõÑù×ß²ÅÄÜÂ·¾¶×î¶Ì£¿
+Xï¿½Çµï¿½Ì¹ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë½»ï¿½ï¿½Ø´ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ò½«±ï¿½ï¿½Ï¡ï¿½
+Ä³Ì¹ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Bï¿½ï¿½È¥ï¿½ï¿½Aï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½È«ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ì£ï¿½
 
-ÒÑÖªµÄµØÍ¼ÊÇÒ»¸ö·½Õó£¬ÉÏÃæÓÃ×ÖÄ¸±ê³öÁËA£¬BÇø£¬ÆäËüÇø¶¼±êÁËÕýºÅ»ò¸ººÅ·Ö±ð±íÊ¾Õý¸ºÄÜÁ¿·øÉäÇø¡£
-ÀýÈç£º
+ï¿½ï¿½Öªï¿½Äµï¿½Í¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»ò¸ººÅ·Ö±ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ç£º
 A + - + -
 - + - - +
 - + + + -
 + - + - +
 B + - + -
 
-Ì¹¿Ë³µÖ»ÄÜË®Æ½»ò´¹Ö±·½ÏòÉÏÒÆ¶¯µ½ÏàÁÚµÄÇø¡£
+Ì¹ï¿½Ë³ï¿½Ö»ï¿½ï¿½Ë®Æ½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
 
-Êý¾Ý¸ñÊ½ÒªÇó£º
+ï¿½ï¿½ï¿½Ý¸ï¿½Ê½Òªï¿½ï¿½
 
-ÊäÈëµÚÒ»ÐÐÊÇÒ»¸öÕûÊýn£¬±íÊ¾·½ÕóµÄ´óÐ¡£¬ 4<=n<100
-½ÓÏÂÀ´ÊÇnÐÐ£¬Ã¿ÐÐÓÐn¸öÊý¾Ý£¬¿ÉÄÜÊÇA£¬B£¬+£¬-ÖÐµÄÄ³Ò»¸ö£¬ÖÐ¼äÓÃ¿Õ¸ñ·Ö¿ª¡£
-A£¬B¶¼Ö»³öÏÖÒ»´Î¡£
+ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½ 4<=n<100
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½Ð£ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Bï¿½ï¿½+ï¿½ï¿½-ï¿½Ðµï¿½Ä³Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ã¿Õ¸ï¿½Ö¿ï¿½ï¿½ï¿½
+Aï¿½ï¿½Bï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¡ï¿½
 
-ÒªÇóÊä³öÒ»¸öÕûÊý£¬±íÊ¾Ì¹¿Ë´ÓAÇøµ½BÇøµÄ×îÉÙÒÆ¶¯²½Êý¡£
-Èç¹ûÃ»ÓÐ·½°¸£¬ÔòÊä³ö-1
+Òªï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Ì¹ï¿½Ë´ï¿½Aï¿½ï¿½ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½Ã»ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-1
 
-ÀýÈç£º
-ÓÃ»§ÊäÈë£º
+ï¿½ï¿½ï¿½ç£º
+ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ë£º
 5
 A + - + -
 - + - - +
@@ -36,20 +36,20 @@ A + - + -
 + - + - +
 B + - + -
 
-Ôò³ÌÐòÓ¦¸ÃÊä³ö£º
+ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 10
  *
  */
 
-public class ´©Ô½À×Çø {
+public class ç©¿è¶Šé›·åŒº {
 	
 	static char [][] map;
 	static boolean [][] vis;
 	static int [] count;
 	static int [] path;
-	static int [] dir_x = {1, 0, -1, 0};//ÉÏÏÂÒÆ¶¯
-	static int [] dir_y = {0, 1, 0, -1};//×óÓÒÒÆ¶¯
-	//³õÊ¼
+	static int [] dir_x = {1, 0, -1, 0};//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	static int [] dir_y = {0, 1, 0, -1};//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	//ï¿½ï¿½Ê¼
 	public static void init(int N){
 		for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
@@ -57,7 +57,7 @@ public class ´©Ô½À×Çø {
 			}
 		}
 	}
-	//Ñ°ÕÒAµã
+	//Ñ°ï¿½ï¿½Aï¿½ï¿½
 	public static int find_A(int N){
 		for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
@@ -67,7 +67,7 @@ public class ´©Ô½À×Çø {
 		}
 		return 0;
 	}
-	//Ñ°ÕÒBµã
+	//Ñ°ï¿½ï¿½Bï¿½ï¿½
 	public static int find_B(int N){
 		for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
@@ -77,8 +77,8 @@ public class ´©Ô½À×Çø {
 		}
 		return 0;
 	}
-	//ÅÐ¶ÏÕý¸º¼«
-	public static boolean judge(int N, int p, int np){//pÎªÒÆ¶¯Ç°µÄµã£¬npÎªÒÆ¶¯ºóµÄµã
+	//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static boolean judge(int N, int p, int np){//pÎªï¿½Æ¶ï¿½Ç°ï¿½Äµã£¬npÎªï¿½Æ¶ï¿½ï¿½ï¿½Äµï¿½
 		char re_pos = map[p/N][p%N];
 		char cur_pos = map[np/N][np%N];
 		if(re_pos=='+' && cur_pos=='-'
@@ -93,7 +93,7 @@ public class ´©Ô½À×Çø {
 		}
 		return false;
 	}
-	//´òÓ¡Â·¾¶
+	//ï¿½ï¿½Ó¡Â·ï¿½ï¿½
 	public static void show(int N){
 		for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
@@ -109,9 +109,9 @@ public class ´©Ô½À×Çø {
 		
 		Queue <Integer> q = new LinkedList <Integer>();
 		boolean flag = false;
-		int p = 0;//ÒÆ¶¯Ç°µÄ×ø±ê
-		int np = 0;//ÒÆ¶¯ºóµÄ×ø±ê
-		q.add(A);//ÆðµãÈë¶Ó
+		int p = 0;//ï¿½Æ¶ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int np = 0;//ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		q.add(A);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		while(!q.isEmpty()){
 			p = q.poll();
 			int x = p/N;
@@ -144,18 +144,18 @@ public class ´©Ô½À×Çø {
 			}
 			show(N);
 		}
-		System.out.println("×Ü²½Êý£º"+(flag ? count[B] : -1));
+		System.out.println("ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½"+(flag ? count[B] : -1));
 	}
 	
 	public static void main(String [] args){
 		Scanner input = new Scanner(System.in);
 		int N = input.nextInt();
-		//³õÊ¼»¯Êý¾Ý
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		map = new char [N][N];
 		vis = new boolean [N][N];
 		count = new int [N*N];
 		path = new int [N*N];
-		//ÊäÈë
+		//ï¿½ï¿½ï¿½ï¿½
 		for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
 				String temp = input.next();
