@@ -60,6 +60,13 @@ public class 最少钱币数 {
 		return result;
 	}
 	
+	// 递归
+	public static int dg() {
+		
+		return 0;
+		
+	}
+	
 	// 采用dp
 	public static void dp() {
 		
