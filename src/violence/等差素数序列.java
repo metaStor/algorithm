@@ -17,7 +17,7 @@ package violence;
 public class µÈ²îËØÊıĞòÁĞ {
 	
 	public static boolean isSS(int n){
-		for(int i=2;i<n;i++){
+		for(int i=2;i<=Math.sqrt(n);i++){
 			if(n%i==0)
 				return false;
 		}

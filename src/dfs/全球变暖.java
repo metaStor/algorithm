@@ -1,4 +1,4 @@
-package bfs;
+package dfs;
 
 import java.util.Scanner;
 
@@ -44,78 +44,104 @@ import java.util.Scanner;
  * 【输出样例】 1  
  *
  */
+
 public class 全球变暖 {
 
 	static char[][] map;
-	static boolean[][] vis;
-	static int n;
+	static int n, sum = 0, remain = 0; // sum总岛屿,remain剩下的岛屿
+	static boolean isDeath;
 	static int[][] dir = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+	static boolean[][] vis;
+	static int[] record;
 
-	public static void initialize(boolean[][] arr) {
-		for (int i = 0; i < n; ++i) {
-			for (int j = 0; j < n; ++j) {
-				arr[i][j] = false;
+	public static void dfs1(int i, int j) {
+		// 当要被淹没的时候进入判断是否是真的
+		if (isDeath) {
+			int count = 0; // 记录当前点周围的#数
+			for (int d = 0; d < 4; ++d) {
+				int x = i + dir[d][0];
+				int y = j + dir[d][1];
+				if (x >= 0 && x < n && y >= 0 && y < n && map[x][y] != '.') {
+					count++;
+				}
+			}
+			// 周围充满#不会被淹没
+			if (count == 4) {
+				isDeath = false; // 在一个岛屿的dfs中,只要一直连通,就一直为false
+				++remain;
 			}
 		}
-	}
-
-	public static void bfs(char[][] arr, int i, int j) {
+		// 标记已遍历
+		map[i][j] = '*';
+		// dfs
 		for (int d = 0; d < 4; ++d) {
 			int x = i + dir[d][0];
 			int y = j + dir[d][1];
-			if (x >= 0 && x < n && y >= 0 && y < n && !vis[x][y] && arr[x][y] == '#') {
-				vis[x][y] = true;
-				bfs(arr, x, y);
+			if (x >= 0 && x < n && y >= 0 && y < n && map[x][y] == '#') {
+				dfs1(x, y);
 			}
 		}
 	}
 
-	public static int islandCount(char[][] arr) {
-		int count = 0;
+	public static void func1() {
 		for (int i = 0; i < n; ++i) {
 			for (int j = 0; j < n; ++j) {
-				if (!vis[i][j] && arr[i][j] == '#') {
-					vis[i][j] = true;
-					bfs(arr, i, j);
-					++count;
+				if (map[i][j] == '#') {
+					sum++;
+					isDeath = true; // 假设默认被淹没
+					dfs1(i, j);
 				}
 			}
 		}
-		return count;
+		System.out.println(sum + " " + remain);
+	}
+
+	public static void dfs2(int i, int j, int k) {
+		if (vis[i][j] || map[i][j] != '#') {
+			return;
+		}
+		// 找出当前点都是#的数量
+		if (map[i + 1][j] == '#' && map[i - 1][j] == '#' && map[i][j + 1] == '#' && map[i][j - 1] == '#') {
+			record[k]++;
+		}
+		vis[i][j] = true;
+		dfs2(i + 1, j, k);
+		dfs2(i - 1, j, k);
+		dfs2(i, j + 1, k);
+		dfs2(i, j - 1, k);
+	}
+
+	public static void func2() {
+		vis = new boolean[n][n];
+		record = new int[n * n];
+		int pos = 0, count = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (!vis[i][j] && map[i][j] == '#') {
+					dfs2(i, j, pos);
+					pos++;  // 记录巡查了多少个岛
+				}
+			}
+		}
+		for (int i = 0; i < pos; i++) {
+			// 所有的岛中不被淹没的数量
+			if (record[i] == 0) {
+				count++;
+			}
+		}
+		System.out.println(count);
 	}
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		n = input.nextInt();
 		map = new char[n][n];
-		vis = new boolean[n][n];
 		for (int i = 0; i < n; i++) {
 			String s = input.next();
 			map[i] = s.toCharArray();
 		}
-		initialize(vis);
-		int CountSum = islandCount(map);
-		System.out.println("Init isLand's Count: " + CountSum);
-		for (int i = 0; i < n; ++i) {
-			for (int j = 0; j < n; ++j) {
-				// initialize()中已经将#标记为true,.标记为false
-				if (vis[i][j]) {
-					for (int d = 0; d < 4; ++d) {
-						int x = i + dir[d][0];
-						int y = j + dir[d][1];
-						if (!(x >= 0 && x < n && y >= 0 && y < n) || !vis[x][y]) {
-							map[i][j] = '.';
-							break;
-						}
-					}
-				}
-			}
-		}
-		initialize(vis);
-		int LaterCount = islandCount(map);
-		System.out.println("Later isLand's Count: " + LaterCount);
-		System.out.println("Remain isLand's Count: " + (CountSum - LaterCount));
+//		func1();
+		func2();
 		input.close();
 	}
-
 }

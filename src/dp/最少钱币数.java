@@ -32,9 +32,11 @@ import java.util.Scanner;
 
 public class 最少钱币数 {
 
+	final static int N = 10000;
+
 	/*
 	 * 有局部解， 例如：凑17， 有1 3 8 10面值
-	 * */
+	 */
 	public static int[] greedy(int[] money, int value) {
 		Arrays.sort(money);
 		int len = money.length;
@@ -59,10 +61,70 @@ public class 最少钱币数 {
 		}
 		return result;
 	}
-	
-	// 采用dp
-	public static void dp() {
-		
+
+	// 递归
+	public static int dg(int[] coints, int n, int index, int money) {
+		// 刚好凑完钱数
+		if (money == 0) {
+			return 0;
+		}
+		// 边界条件
+		if (index >= n || money < 0 || money < coints[index]) {
+			return N; // 不能用Integer.Max会超
+		}
+		// 当前钱数刚好等于面值数, 则刚好
+		for (int i = 0; i < n; i++) {
+			if (coints[i] == money) {
+				return 1;
+			}
+		}
+		/*
+		 * 递归, 在取与不取index位置的面值中, 选一个数量最小的 而且选了index位置的面值还可能选它, 所以index不用增加
+		 */
+		return Math.min(dg(coints, n, index + 1, money), dg(coints, n, index, money - coints[index]) + 1);
+	}
+
+	/*
+	 * 采用dp 状态转移方程: dp[index] = Math.min(dp[index], dp[index-coints[j]] + 1)
+	 */
+	public static void dp(int[] coints, int money) {
+		int len = coints.length;
+		int[] dp = new int[money + 1]; // 下标代表当前钱数, 数组值代表钱数
+		int[] records = new int[money + 1]; // 记录用了哪些面值
+		// 从1元开始凑
+		for (int i = 1; i <= money; i++) {
+			int min = N;
+			int temp = -1;
+			for (int j = 0; j < len; j++) {
+				if (coints[j] <= i) {
+					if ((1 + dp[i - coints[j]]) < min && dp[i - coints[j]] != -1) {
+						min = 1 + dp[i - coints[j]];
+						temp = coints[j];
+					}
+				}
+			}
+			// 不能凑的赋值为-1, 即为不能凑出
+			dp[i] = (min != N) ? min : -1;
+			records[i] = temp;
+		}
+		if (dp[money] == -1) {
+			System.out.println("impossible!");
+		} else {
+			// 输出
+			System.out.print(dp[money] + " ");
+			int[] counts = new int[money + 1];
+			int money_t = money;
+			while (money_t > 0) {
+//				System.out.print(records[money]+" ");
+				counts[records[money_t]]++;
+				money_t = money_t - records[money_t];
+			}
+			for (int k = 0; k <= money; k++) {
+				if (counts[k] != 0) {
+					System.out.print(k + "(" + counts[k] + ") ");
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -70,21 +132,27 @@ public class 最少钱币数 {
 		Scanner input = new Scanner(System.in);
 		int value = input.nextInt();
 		int n = input.nextInt();
-		int[] money = new int[n];
+		int[] coints = new int[n];
 		for (int i = 0; i < n; i++) {
-			money[i] = input.nextInt();
+			coints[i] = input.nextInt();
 		}
-		int[] count = greedy(money, value);
-		if (count[0] == -1) {
-			System.out.println("impossible!");
-		} else {
-			System.out.print(count[0] + " ");
-			for (int i = 1; i < count.length; i++) {
-				if (count[i] != 0) {
-					System.out.print(i + "(" + count[i] + ") ");
-				}
-			}
-		}
+		// 动态规划
+		dp(coints, value);
+		// 贪心, 不完全
+//		int[] count = greedy(money, value);
+//		if (count[0] == -1) {
+//			System.out.println("impossible!");
+//		} else {
+//			System.out.print(count[0] + " ");
+//			for (int i = 1; i < count.length; i++) {
+//				if (count[i] != 0) {
+//					System.out.print(i + "(" + count[i] + ") ");
+//				}
+//			}
+//		}
+		// 递归
+//		int count = dg(coints, n, 0, value);
+//		System.out.println((count == N) ? "impossible!" : count);
 		input.close();
 	}
 }

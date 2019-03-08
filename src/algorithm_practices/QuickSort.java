@@ -37,6 +37,40 @@ public class QuickSort {
 		}
 	}
 	
+
+	public static void QuickSortFast(int[] arr, int left, int right) {
+		// 排序完毕
+		if (left >= right) {
+			return;
+		}
+		// 选left位置的数为基数
+		int radix = arr[left];
+		int l = left + 1, r = right, t;
+		while (l != r) {
+			// 从右边开始找比radix小的一个数
+			while (l < r && radix < arr[r]) {
+				--r;
+			}
+			// 从左边边开始找比radix大的一个数
+			while (l < r && radix > arr[l]) {
+				++l;
+			}
+			// 交换位置
+			if (l < r) {
+				t = arr[l];
+				arr[l] = arr[r];
+				arr[r] = t;
+			}
+		}
+		// 最后对radix和当前相交点交换位置
+		arr[left] = arr[l];
+		arr[l] = radix;
+		// 对左半边排序
+		QuickSortFast(arr, left, l - 1);
+		// 对右半边排序
+		QuickSortFast(arr, l + 1, right);
+	}
+	
 	/*
 	public static void quickSort(int [] date,int left,int right){
 		if(left < right){
