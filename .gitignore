@@ -3,6 +3,5 @@ bin
 .settings
 .classpath
 *.class
-.class
 .metadata
 .recommenders
