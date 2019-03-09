@@ -33,7 +33,7 @@ public class ¸÷Ïî¹Ú¾ü {
 							if(c==4 || d==2) count++;
 							if(b==3 || e==5) count++;
 							if(count==4){
-								System.out.println(a+" "+b+" "+c+" "+d);
+								System.out.println(a+" "+b+" "+c+" "+d+" "+e);
 							}
 						}
 					}

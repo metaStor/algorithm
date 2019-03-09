@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Fibonacci {
 	
-	public static int Fib(int num){
+	public static int Fib(long num){
 		if(num <= 2)
 			return 1;
 		
@@ -16,12 +16,12 @@ public class Fibonacci {
 		Scanner input = new Scanner(System.in);
 		
 		//非递归
-		int n = input.nextInt(); 
-		int a1 = 1, a2 = 1;	//表示f(1)=1 , f(2)=1
-		int temp;		//中间值
-		int sum = 0;	//迭代最终值
+		long n = input.nextInt(); 
+		long a1 = 1, a2 = 1;	//表示f(1)=1 , f(2)=1
+		long temp;		//中间值
+		long sum = 0;	//迭代最终值
 		
-		for(int i=1;i<=n;i++){
+		for(long i=1;i<=n;i++){
 			sum = a1;
 			temp = a2;
 			a2 = a1+a2;
