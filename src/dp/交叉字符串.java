@@ -23,17 +23,15 @@ public class 交叉字符串 {
 		boolean[][] dp = new boolean[n + 1][m + 1];
 		// 初始边界条件
 		dp[0][0] = true;
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 0; i <= n; i++) {
+			for (int j = 0; j <= m; j++) {
 				// dp[i][j] = (s1[i]==s3[i+j-1] && dp[i-1][j]) ? true : false
-				if (dp[i][j] || (i - 1 >= 0 && dp[i - 1][j]) && s1.charAt(i) == s3.charAt(i + j - 1)) {
+				if (dp[i][j] || (i - 1 >= 0 && dp[i - 1][j]) && s1.charAt(i - 1) == s3.charAt(i + j - 1)) {
 					dp[i][j] = true;
-					break;
 				}
 				// dp[i][j] = (s2[j]==s3[i+j-1] && dp[i][j-1]) ? true : false
-				else if (dp[i][j] || (j - 1 >= 0 && dp[i][j - 1]) && s2.charAt(j) == s3.charAt(i + j - 1)) {
+				else if (dp[i][j] || (j - 1 >= 0 && dp[i][j - 1]) && s2.charAt(j - 1) == s3.charAt(i + j - 1)) {
 					dp[i][j] = true;
-					break;
 				}
 				else {
 					dp[i][j] = false; 
