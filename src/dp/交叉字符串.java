@@ -14,10 +14,17 @@ public class 交叉字符串 {
 	 * dp[i][j] = (s2[j]==s3[i+j-1] && dp[i][j-1]) ? true : false
 	 */
 	public static boolean DP(String s1, String s2, String s3) {
-		int n = s1.length(), m = s1.length(), h = s3.length();
+		int n = s1.length(), m = s2.length(), h = s3.length();
 		// 长度不一
 		if ((n + m) != h) {
 			return false;
+		}
+		// 其中一个为空,直接判断另一个
+		if (n == 0) {
+			return s2.equals(s3);
+		}
+		if (m == 0) {
+			return s1.equals(s3);
 		}
 		// start with dp[1][1]
 		boolean[][] dp = new boolean[n + 1][m + 1];
@@ -26,11 +33,11 @@ public class 交叉字符串 {
 		for (int i = 0; i <= n; i++) {
 			for (int j = 0; j <= m; j++) {
 				// dp[i][j] = (s1[i]==s3[i+j-1] && dp[i-1][j]) ? true : false
-				if (dp[i][j] || (i - 1 >= 0 && dp[i - 1][j]) && s1.charAt(i - 1) == s3.charAt(i + j - 1)) {
+				if (dp[i][j] || (i - 1 >= 0 && dp[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1))) {
 					dp[i][j] = true;
 				}
 				// dp[i][j] = (s2[j]==s3[i+j-1] && dp[i][j-1]) ? true : false
-				else if (dp[i][j] || (j - 1 >= 0 && dp[i][j - 1]) && s2.charAt(j - 1) == s3.charAt(i + j - 1)) {
+				else if (dp[i][j] || (j - 1 >= 0 && dp[i][j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1))) {
 					dp[i][j] = true;
 				}
 				else {

@@ -15,20 +15,28 @@ package algorithm_practices;
  */
 
 public class X的平方根 {
-	
-    public static int sqrt(int x) {
-    	int y = 0;
-    	double dist = x;
-    	for (int i = 0; i <= x / 2; i++) {
-    		double diff = Math.abs((1.0 * x) / i - x);
-			y = (diff < dist) ? i : y;
+
+	// binary search
+	public static int sqrt(int x) {
+		// x/2 : optimize efficiency
+		long i = 0, j = (x < 2) ? x : x >> 1;
+		while (i <= j) {
+			// half of i and j
+			long mid = (j - i) / 2 + i;
+			if ((mid * mid) < x) {
+				i = mid + 1;
+			} else if ((mid * mid > x)) {
+				j = mid - 1;
+			} else {
+				break;
+			}
 		}
-    	return y;
-    }
+		return (int) j;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(sqrt(17));
+		System.out.println(sqrt(1)); // 2147483647
 	}
 
 }
