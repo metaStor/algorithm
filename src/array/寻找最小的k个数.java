@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class 寻找最小的k个数 {
 
-	static int[] arr = { 5, 1, 4, 2, 3, 9 };
+	static int[] arr = {9, 3, 2, 4, 8};
 	static final int k = 3;
 
 	public static void quickSort(int[] arr, int left, int right) {
@@ -14,16 +14,12 @@ public class 寻找最小的k个数 {
 		}
 		// 选left位置的数为基数
 		int radix = arr[left];
-		int l = left + 1, r = right, t;
+		int l = left, r = right, t;
 		while (l != r) {
 			// 从右边开始找比radix小的一个数
-			while (l < r && radix < arr[r]) {
-				--r;
-			}
+			while (l < r && radix <= arr[r]) --r;
 			// 从左边边开始找比radix大的一个数
-			while (l < r && radix > arr[l]) {
-				++l;
-			}
+			while (l < r && radix >= arr[l]) ++l;
 			// 交换位置
 			if (l < r) {
 				t = arr[l];
@@ -46,7 +42,7 @@ public class 寻找最小的k个数 {
 	public static void func1() {
 		// TODO Auto-generated method stub
 		quickSort(arr, 0, arr.length - 1);
-		for (int i = 0; i < k; i++) {
+		for (int i = 0; i < arr.length; i++) {
 			System.out.print(arr[i] + " ");
 		}
 	}
@@ -92,7 +88,7 @@ public class 寻找最小的k个数 {
 	}
 
 	public static void main(String[] args) {
-		func3();
+		func1();
 	}
 
 }
