@@ -30,8 +30,10 @@ public class Word_Reverse {
 		int start = 0;
 		int len  = s.length - 1;
 		for (int i = 0; i <= len; ++i) {
-			if (s[i] == ' ' || i == len) {
-				if ((i - start) > 1) {
+			if (i == len) {
+				reverse_test(s, start, i);
+			} else if (s[i] == ' ') {
+				if (i > start) {
 					reverse_test(s, start, i - 1);
 				}
 				start = i + 1;
