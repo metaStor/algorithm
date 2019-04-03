@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class 寻找最小的k个数 {
 
-	static int[] arr = {9, 3, 2, 4, 8};
-	static final int k = 3;
+	static int[] arr = { 3, 4, 2, 8, 5, 1 };
+	static final int k = 4;
 
 	public static void quickSort(int[] arr, int left, int right) {
 		// 排序完毕
@@ -17,9 +17,11 @@ public class 寻找最小的k个数 {
 		int l = left, r = right, t;
 		while (l != r) {
 			// 从右边开始找比radix小的一个数
-			while (l < r && radix <= arr[r]) --r;
+			while (l < r && radix <= arr[r])
+				--r;
 			// 从左边边开始找比radix大的一个数
-			while (l < r && radix >= arr[l]) ++l;
+			while (l < r && radix >= arr[l])
+				++l;
 			// 交换位置
 			if (l < r) {
 				t = arr[l];
@@ -48,9 +50,7 @@ public class 寻找最小的k个数 {
 	}
 
 	/*
-	 * 建立一个k长度的数组 
-	 * 先往里面放k个任意数,
-	 * 然后选出其中最大值即kmax 遍历剩下的n-k个元素, 存在元素i<kmax则更新k长度的数组
+	 * 建立一个k长度的数组 先往里面放k个任意数, 然后选出其中最大值即kmax 遍历剩下的n-k个元素, 存在元素i<kmax则更新k长度的数组
 	 * 选出的数不一定是有序的
 	 */
 	public static void func2() {
@@ -83,12 +83,38 @@ public class 寻找最小的k个数 {
 		System.out.println(Arrays.toString(values));
 	}
 
-	public static void func3() {
-		// TODO Auto-generated method stub
+	// 随机快排
+	public static int func3(int a[], int l, int r, int k) {
+		// between l ~ r
+		int p = (int) (Math.random() * (r - l + 1) + l);
+		int x = a[p];
+		{
+			int t = a[p];
+			a[p] = a[r];
+			a[r] = t;
+		}
+		int i = l, j = r;
+		while (i < j) {
+			while (i < j && a[i] < x) i++;
+			if (i < j) {
+				a[j] = a[i];
+				j--;
+			}
+			while (i < j && a[j] > x) j--;
+			if (i < j) {
+				a[i] = a[j];
+				i++;
+			}
+		}
+		a[i] = x;
+		p = i;
+		if (i - l + 1 == k) return a[i];
+		if (i - l + 1 < k) return func3(a, i + 1, r, k - (i - l + 1)); // 填空
+		else return func3(a, l, i - 1, k);
 	}
 
 	public static void main(String[] args) {
-		func1();
+		System.out.println(func3(arr, 0, arr.length - 1, k));
 	}
 
 }

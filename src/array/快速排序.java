@@ -10,9 +10,9 @@ public class ©ЛкыеепР {
 		int i = left, j = right, temp = a[left];
 		while (i < j) {
 			while (i < j && a[j] >= temp) --j;
-			a[i] = a[j];
+			if (i < j) a[i++] = a[j];
 			while (i < j && a[i] <= temp) ++i;
-			a[j] = a[i]; 
+			if (i < j) a[j--] = a[i]; 
 		}
 		a[i] = temp; 
 		quickSort(a, left, i - 1);
