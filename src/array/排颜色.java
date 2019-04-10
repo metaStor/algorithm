@@ -5,7 +5,7 @@ import java.util.Arrays;
 /*
  * 有红白蓝三种颜色的球共n个随机排列，而我们的任务就是将这n个球按红、白、蓝顺序排好。
  * */
-public class 荷兰国旗 {
+public class 排颜色 {
 
 	static int[] flags = { 1, 2, 0, 1, 0, 0, 2, 1, 1, 2 };
 	static int len;
@@ -64,15 +64,11 @@ public class 荷兰国旗 {
 		int begin = 0, current = 0, end = len - 1;
 		while(current <= end) {
 			if (flags[current] == 0) {
-				swap(flags, begin, current);
-				++begin;
-				++current;
+				swap(flags, begin++, current++);
 			}else if (flags[current] == 1) {
 				++current;
 			}else if (flags[current] == 2) {
-				swap(flags, current, end);
-				--current;
-				--end;
+				swap(flags, current, end--);
 			}
 		}
 		System.out.println(Arrays.toString(flags));
