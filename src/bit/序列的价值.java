@@ -1,4 +1,4 @@
-package algorithm_practices;
+package bit;
 
 import java.util.Scanner;
 

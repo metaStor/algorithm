@@ -1,4 +1,4 @@
-package algorithm_practices;
+package bit;
 
 /*
  * 计算在一个 32 位的整数的二进制表示中有多少个 1。
