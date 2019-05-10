@@ -82,35 +82,53 @@ public class 寻找最小的k个数 {
 		}
 		System.out.println(Arrays.toString(values));
 	}
+	
+	// 快排
+    public static int quickSort(int[] arr, int l, int r, int k) {
+        int temp = arr[l];
+        int i = l, j = r;
+        while (i < j) {
+    		// find j which less than temp
+            while (i < j && arr[j] >= temp) --j;
+            if (i < j) arr[i++] = arr[j];
+    		// find i which more than temp
+            while (i < j && arr[i] <= temp) ++i;
+            if (i < j) arr[j--] = arr[i];
+        }
+        arr[i] = temp;
+        if (i == k - 1) return temp;
+        if (i > k - 1) return quickSort(arr, l, i - 1, k);
+        return quickSort(arr, i + 1, r, k);
+    }
 
 	// 随机快排
-	public static int func3(int a[], int l, int r, int k) {
+	public static int func3(int arr[], int l, int r, int k) {
 		// between l ~ r
 		int p = (int) (Math.random() * (r - l + 1) + l);
-		int x = a[p];
+		int x = arr[p];
 		{
-			int t = a[p];
-			a[p] = a[r];
-			a[r] = t;
+			int t = arr[p];
+			arr[p] = arr[r];
+			arr[r] = t;
 		}
 		int i = l, j = r;
 		while (i < j) {
-			while (i < j && a[i] < x) i++;
+			while (i < j && arr[i] < x) i++;
 			if (i < j) {
-				a[j] = a[i];
+				arr[j] = arr[i];
 				j--;
 			}
-			while (i < j && a[j] > x) j--;
+			while (i < j && arr[j] > x) j--;
 			if (i < j) {
-				a[i] = a[j];
+				arr[i] = arr[j];
 				i++;
 			}
 		}
-		a[i] = x;
+		arr[i] = x;
 		p = i;
-		if (i - l + 1 == k) return a[i];
-		if (i - l + 1 < k) return func3(a, i + 1, r, k - (i - l + 1)); // 填空
-		else return func3(a, l, i - 1, k);
+		if (i - l + 1 == k) return arr[i];
+		if (i - l + 1 < k) return func3(arr, i + 1, r, k - (i - l + 1)); // 填空
+		else return func3(arr, l, i - 1, k);
 	}
 
 	public static void main(String[] args) {

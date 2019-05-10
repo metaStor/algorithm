@@ -29,10 +29,10 @@ public class µÚk´óÔªËØ {
     	int temp = nums[start];
     	int i = start, j = end;
     	while (i < j) {
-    		// find j which less than temp
+    		// find j which more than temp
     		while (i < j && nums[j] <= temp) j--;
     		if (i < j) nums[i++] = nums[j]; 
-    		// find i which more than temp
+    		// find i which less than temp
     		while (i < j && nums[i] > temp) i++;
     		if (i < j) nums[j--] = nums[i]; 
     	}
