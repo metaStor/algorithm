@@ -1,9 +1,5 @@
 package dp;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /*
@@ -25,47 +21,47 @@ import java.util.Scanner;
 public class 饱和式救援 {
 	
 	static int n, k, m;
-	static pair[] teams = new pair[100005];
-
-	public static class pair {
-		int num;
-		float odd;
-		public pair(int num, float odd) {
-			this.num = num;
-			this.odd = odd;
-		}
-	}
+	static double[] pro = new double[2010]; // 每个发动机的不成功率
+	static double[][] dp = new double[2010][2010];
 	
-	public static void solve() {
+	/*
+	 * 因为一个发动机可以被多个队伍救援，所以总的成功率=1-各个队伍失败率之积
+	 * dp[i][j]表示对于i个发动机，已经救援了j个, 直接输出dp[M][K]即可
+	 * 递推: 假设1个发动机，已经救援了1个，那么
+	 * 如果救援成功就变成2个发动机，已经救援了2个
+	 * 如果救援失败，变为2个发动机，已经救援了1个
+	 * 状态转移方程: dp[i][j] = dp[i-1][j-1]*pro[i] + dp[i-1][j]*(1-pro[i])
+	 */
+	public static void DP(Scanner input) {
 		if (k == 0) {
 			System.out.println("1.000");
 			return;
 		}
-		Arrays.sort(teams, 1, n + 1, new Comparator<pair>() {
-			@Override
-			public int compare(pair o1, pair o2) {
-				// TODO Auto-generated method stub
-				if (o2.odd > o1.odd) return 1;
-				return -1;
-			}
-		});
-		for (int i = 1; i <= n; i++) System.out.println(teams[i].num + " " + teams[i].odd);
-		Map<Integer, Float> map = new HashMap<Integer, Float>();
+		if (n < k) {
+			System.out.println("0.000");
+			return;
+		}
+		// initialize
+		for (int i = 1; i <= m; ++i) pro[i] = 1; 
 		for (int i = 1; i <= n; i++) {
-			pair cur = teams[i];
-			if (!map.containsKey(cur.num) ||
-					map.containsKey(cur.num) && map.get(cur.num) < cur.odd) {
-				map.put(cur.num, cur.odd);
+			int id = input.nextInt();
+			double probably = input.nextDouble();
+			pro[id] *= (1 - probably); // 得到发动机id的失败率
+		}
+		// 求出各个发动机的救援成功率
+		for (int i = 1; i <= m; i++) pro[i] = 1 - pro[i];
+		// initialize
+		dp[0][0] = 1;
+		for (int i = 1; i <= m; i++) {
+			// j=0都为失败
+			dp[i][0] = dp[i - 1][0] * (1 - pro[i]);
+			for (int j = 1; j <= m; j++) {
+				dp[i][j] = dp[i - 1][j - 1] * pro[i] + dp[i - 1][j] * (1 - pro[i]);
 			}
-			if (map.size() >= k) break;
 		}
-		System.out.println(map.toString());
-		if (map.size() < k) System.out.println("0.000");
-		else {
-			float res = 1;
-			for (float v : map.values()) res *= v;				
-			System.out.println(String.format("%.3f", res));
-		}
+		double ant = 0;
+		for (int i = k; i <= m; i++) ant += dp[m][i];
+		System.out.println(String.format("%.3f", ant));
 	}
 
 	public static void main(String[] args) {
@@ -74,8 +70,7 @@ public class 饱和式救援 {
 		n = input.nextInt();
 		m = input.nextInt();
 		k = input.nextInt();
-		for (int i = 1; i <= n; i++) teams[i] = new pair(input.nextInt(), input.nextFloat()); 
-		solve();
+		DP(input);
 		input.close();
 	}
 
