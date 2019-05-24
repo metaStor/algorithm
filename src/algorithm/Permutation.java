@@ -19,6 +19,7 @@ import java.util.Scanner;
  */
 public class Permutation {
 
+	static final int MOD = 1000000007;
 	static int[] arr = new int[100010];
 	
 	/*
@@ -35,7 +36,7 @@ public class Permutation {
 			long cnt = 1; // 至少有一种: 1 1 1
 			for (int i = 1; i <= n; i++) arr[i] = input.nextInt();
 			Arrays.sort(arr, 1, n + 1); // sort
-			for (int i = 1; i <= n; i++) cnt *= (arr[i] - i + 1);
+			for (int i = 1; i <= n; i++) cnt = (cnt * (arr[i] - i + 1)) % MOD;
 			System.out.println(cnt);
 		}
 		input.close();
