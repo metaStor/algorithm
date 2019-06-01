@@ -16,13 +16,12 @@ public class SA后缀数组 {
      * 即HEIGHT[i]为SA[i-1]与SA[i]的LCP
      */
     static int[] SA, RANK, HEIGHT, tax, tp;
-    static int sign = 127; // 字符中最大的ascii码是127
 
     public static void init(int len) {
         // initialize
         RANK = new int[2 * len];
         SA = new int[2 * len];
-        tax = new int[sign + 1];
+        tax = new int[Integer.MAX_VALUE]; // need MAX
         tp = new int[2 * len];
         HEIGHT = new int[2 * len];
     }
@@ -35,7 +34,7 @@ public class SA后缀数组 {
 	 * tp[i]: 表示长度为2w的后缀中，第二关键字排名为i的后缀下标
 	 */
 
-    public static void suffix(char[] str, int len) {
+    public static void suffix(char[] str, int len, int sign) {
         int i, w, p;
         init(len); // initialize
         // 首先对第一个字符进行基数排序
@@ -135,7 +134,7 @@ public class SA后缀数组 {
 //		SimpleSuffixArray("aabaaaab");
 //		System.out.println(Arrays.toString(SA));
         String string = "aabaaaab";
-        suffix(string.toCharArray(), string.length());
+        suffix(string.toCharArray(), string.length(), 128); // 字符中最大的ascii码是127
         Debug(string.length());
         for (int i = 0; i < string.length(); i++) System.out.print(HEIGHT[i] + " ");
     }

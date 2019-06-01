@@ -9,18 +9,18 @@ import java.util.Scanner;
  */
 public class 不重复子串个数 {
 	
-	static int sign = 128, MAX = 100050;
+	static int MAX = 100050;
 	
 	static int[] sa = new int[MAX];
 	static int[] rank = new int[MAX];
 	static int[] tp = new int[MAX];
 	static int[] height = new int[MAX];
-	static int[] tax = new int[sign];
+	static int[] tax = new int[MAX]; // need MAX
 	
-	public static void da(char[] s, int len) {
+	public static void da(char[] s, int len, int sign) {
 		int i, j, p, w, k;
 		for (i = 0; i < sign; ++i) tax[i] = 0;
-		for (i = 0; i < len; ++i) { rank[i] = s[i]; tax[rank[i]]++;  }
+		for (i = 0; i < len; ++i) { rank[i] = s[i]; tax[rank[i]]++; }
 		for (i = 1; i < sign; ++i) tax[i] += tax[i - 1];
 		for (i = len - 1; i >= 0; --i) sa[--tax[rank[i]]] = i;
 		for (w = 1, p = 1; w < len; w <<= 1, sign = p) {
@@ -61,7 +61,7 @@ public class 不重复子串个数 {
 		String str = input.next();
 		int len = str.length();
 		char[] s = str.toCharArray();
-		da(s, len);
+		da(s, len, 128);
 		for (int i = 0; i < len; i++) cnt += (len - sa[i] - height[i]);
 		System.out.println(cnt);
 		input.close();
